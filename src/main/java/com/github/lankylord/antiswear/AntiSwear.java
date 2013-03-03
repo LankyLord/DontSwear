@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.lankylord.noswear;
+package com.github.lankylord.antiswear;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -40,7 +40,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author LankyLord
  */
-public class NoSwear extends JavaPlugin implements Listener {
+public class AntiSwear extends JavaPlugin implements Listener {
 
   static final Logger logger = Logger.getLogger("Minecraft");
 
@@ -50,7 +50,7 @@ public class NoSwear extends JavaPlugin implements Listener {
     for (String word : ce.getMessage().split(" ")) {
       word = word.toLowerCase();
       if (getConfig().getStringList("BadWords").contains(word))
-        if (!player.hasPermission("noswear.bypass")) {
+        if (!player.hasPermission("AntiSwear.bypass")) {
           ce.setCancelled(true);
           player.sendMessage(ChatColor.RED + "You're not allowed to say that.");
         }
@@ -59,20 +59,20 @@ public class NoSwear extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
-    logger.info("[NoSwear] NoSwear Enabled.");
+    logger.info("[AntiSwear] AntiSwear Enabled.");
     getConfig().options().copyDefaults(true);
     saveDefaultConfig();
     saveConfig();
     Bukkit.getServer().getPluginManager().registerEvents(this, this);
     if (getConfig().getBoolean("AutoUpdater.Enabled", true)) {
-      Updater updater = new Updater(this, "noswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
-      logger.info("[NoSwear] AutoUpdater Enabled.");
+      Updater updater = new Updater(this, "no-swear", this.getFile(), Updater.UpdateType.DEFAULT, true);
+      logger.info("[AntiSwear] AutoUpdater Enabled.");
     }
     try {
       MetricsLite metrics = new MetricsLite(this);
       metrics.start();
     } catch (IOException e) {
-      logger.info("[NoSwear] Error while submitting stats.");
+      logger.info("[AntiSwear] Error while submitting stats.");
     }
   }
 }

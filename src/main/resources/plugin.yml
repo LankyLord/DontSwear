@@ -1,26 +1,26 @@
-name: NoSwear
+name: AntiSwear
 version: 1.0
 description: Prevent swearing in chat.
 author: Lanky_Lord
-website: https://github.com/LankyLord/NoSwear
+website: https://github.com/LankyLord/AntiSwear
 
-main: com.github.lankylord.noswear.NoSwear
+main: com.github.lankylord.AntiSwear.AntiSwear
 database: false
 
 commands:
   swearadd:
     description: Add a swearword to the blacklist.
-    permission: noswear.admin
+    permission: AntiSwear.admin
     
 permissions:
-  noswear.*:
-    description: All NoSwear permissions.
+  AntiSwear.*:
+    description: All AntiSwear permissions.
     children:
-      noswear.admin: true
-      noswear.bypass: true
-  noswear.admin:
+      AntiSwear.admin: true
+      AntiSwear.bypass: true
+  AntiSwear.admin:
     description: Allows you to modify the blacklist.
     default: op
-  noswear.bypass:
+  AntiSwear.bypass:
     description: Allows you to bypass the chat filter.
     default: op
