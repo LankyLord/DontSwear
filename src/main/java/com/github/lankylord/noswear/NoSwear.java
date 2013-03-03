@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -40,20 +41,22 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author LankyLord
  */
 public class NoSwear extends JavaPlugin implements Listener {
-  
+
   static final Logger logger = Logger.getLogger("Minecraft");
-  
+
   @EventHandler
   public void onPlayerChat(AsyncPlayerChatEvent ce) {
+    Player player = ce.getPlayer();
     for (String word : ce.getMessage().split(" ")) {
       word = word.toLowerCase();
-      if (getConfig().getStringList("BadWords").contains(word)) {
-        ce.setCancelled(true);
-        ce.getPlayer().sendMessage(ChatColor.RED + "You're not allowed to say that.");
-      }
+      if (getConfig().getStringList("BadWords").contains(word))
+        if (!player.hasPermission("noswear.bypass")) {
+          ce.setCancelled(true);
+          player.sendMessage(ChatColor.RED + "You're not allowed to say that.");
+        }
     }
   }
-  
+
   @Override
   public void onEnable() {
     logger.info("[NoSwear] NoSwear Enabled.");
