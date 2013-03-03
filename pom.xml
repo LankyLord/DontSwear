@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.lankylord</groupId>
-    <artifactId>AntiSwear</artifactId>
+    <artifactId>DontSwear</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>AntiSwear</name>
-    <url>https://github.com/LankyLord/AntiSwear</url>
+    <name>DontSwear</name>
+    <url>https://github.com/LankyLord/DontSwear</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.lankylord.antiswear;
+package com.github.lankylord.dontswear;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -40,7 +40,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author LankyLord
  */
-public class AntiSwear extends JavaPlugin implements Listener {
+public class DontSwear extends JavaPlugin implements Listener {
 
   static final Logger logger = Logger.getLogger("Minecraft");
 
@@ -50,7 +50,7 @@ public class AntiSwear extends JavaPlugin implements Listener {
     for (String word : ce.getMessage().split(" ")) {
       word = word.toLowerCase();
       if (getConfig().getStringList("BadWords").contains(word))
-        if (!player.hasPermission("AntiSwear.bypass")) {
+        if (!player.hasPermission("DontSwear.bypass")) {
           ce.setCancelled(true);
           player.sendMessage(ChatColor.RED + "You're not allowed to say that.");
         }
@@ -59,20 +59,20 @@ public class AntiSwear extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable() {
-    logger.info("[AntiSwear] AntiSwear Enabled.");
+    logger.info("[DontSwear] DontSwear Enabled.");
     getConfig().options().copyDefaults(true);
     saveDefaultConfig();
     saveConfig();
     Bukkit.getServer().getPluginManager().registerEvents(this, this);
     if (getConfig().getBoolean("AutoUpdater.Enabled", true)) {
       Updater updater = new Updater(this, "no-swear", this.getFile(), Updater.UpdateType.DEFAULT, true);
-      logger.info("[AntiSwear] AutoUpdater Enabled.");
+      logger.info("[DontSwear] AutoUpdater Enabled.");
     }
     try {
       MetricsLite metrics = new MetricsLite(this);
       metrics.start();
     } catch (IOException e) {
-      logger.info("[AntiSwear] Error while submitting stats.");
+      logger.info("[DontSwear] Error while submitting stats.");
     }
   }
 }

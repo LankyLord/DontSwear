@@ -25,7 +25,7 @@
  * authors and contributors and should not be interpreted as representing official policies,
  * either expressed or implied, of anybody else.
  */
-package com.github.lankylord.antiswear;
+package com.github.lankylord.dontswear;
 
 import java.io.BufferedReader;
 import java.io.File;
