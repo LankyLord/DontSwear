@@ -26,6 +26,8 @@
  */
 package com.github.lankylord.noswear;
 
+import java.io.IOException;
+import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -38,7 +40,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author LankyLord
  */
 public class NoSwear extends JavaPlugin implements Listener {
-
+  
+  static final Logger logger = Logger.getLogger("Minecraft");
+  
   @EventHandler
   public void onPlayerChat(AsyncPlayerChatEvent ce) {
     for (String word : ce.getMessage().split(" ")) {
@@ -49,11 +53,23 @@ public class NoSwear extends JavaPlugin implements Listener {
       }
     }
   }
-
+  
   @Override
   public void onEnable() {
+    logger.info("[NoSwear] NoSwear Enabled.");
     getConfig().options().copyDefaults(true);
+    saveDefaultConfig();
     saveConfig();
     Bukkit.getServer().getPluginManager().registerEvents(this, this);
+    if (getConfig().getBoolean("AutoUpdater.Enabled", true)) {
+      Updater updater = new Updater(this, "noswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
+      logger.info("[NoSwear] AutoUpdater Enabled.");
+    }
+    try {
+      MetricsLite metrics = new MetricsLite(this);
+      metrics.start();
+    } catch (IOException e) {
+      logger.info("[NoSwear] Error while submitting stats.");
+    }
   }
 }
