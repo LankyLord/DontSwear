@@ -1,10 +1,10 @@
 name: DontSwear
-version: 1.0
+version: 1.1
 description: Prevent swearing in chat.
 author: Lanky_Lord
 website: https://github.com/LankyLord/DontSwear
 
-main: com.github.lankylord.DontSwear.DontSwear
+main: com.github.lankylord.dontswear.DontSwear
 database: false
 
 commands:

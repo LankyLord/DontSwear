@@ -65,7 +65,7 @@ public class DontSwear extends JavaPlugin implements Listener {
     saveConfig();
     Bukkit.getServer().getPluginManager().registerEvents(this, this);
     if (getConfig().getBoolean("AutoUpdater.Enabled", true)) {
-      Updater updater = new Updater(this, "no-swear", this.getFile(), Updater.UpdateType.DEFAULT, true);
+      Updater updater = new Updater(this, "dontswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
       logger.info("[DontSwear] AutoUpdater Enabled.");
     }
     try {

@@ -1,5 +1,4 @@
 AutoUpdater:
   Enabled: true
 BadWords:
-  #All badwords must be in lower case.
   - fuck
