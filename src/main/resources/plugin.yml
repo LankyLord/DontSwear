@@ -1,5 +1,5 @@
 name: DontSwear
-version: 2.0
+version: maven-version-number
 description: Prevent swearing in chat.
 author: Lanky_Lord
 website: https://github.com/LankyLord/DontSwear
