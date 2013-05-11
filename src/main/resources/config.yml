@@ -1,4 +1,5 @@
 AutoUpdater:
   Enabled: true
+DenyMessage: You're not allowed to say that.
 BadWords:
   - fuck

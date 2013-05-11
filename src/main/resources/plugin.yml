@@ -1,16 +1,19 @@
 name: DontSwear
-version: 1.1
+version: 2.0
 description: Prevent swearing in chat.
 author: Lanky_Lord
 website: https://github.com/LankyLord/DontSwear
 
-main: com.github.lankylord.dontswear.DontSwear
+main: net.lankylord.dontswear.DontSwear
 database: false
 
 commands:
-  swearadd:
+  addswear:
     description: Add a swearword to the blacklist.
-    permission: DontSwear.admin
+    permission: dontswear.admin
+  delswear:
+    description: Remove a swearword from the blacklist.
+    permission: dontswear.admin
     
 permissions:
   DontSwear.*:

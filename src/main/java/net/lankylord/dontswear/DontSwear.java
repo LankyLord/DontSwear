@@ -27,13 +27,13 @@
 package net.lankylord.dontswear;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.lankylord.dontswear.commands.AddSwearCommand;
+import net.lankylord.dontswear.commands.RemoveSwearCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -42,37 +42,38 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class DontSwear extends JavaPlugin implements Listener {
 
-  static final Logger logger = Logger.getLogger("Minecraft");
+    static final Logger logger = Logger.getLogger("Minecraft");
+    private SwearManager manager;
+    private ChatListener listener;
 
-  @EventHandler
-  public void onPlayerChat(AsyncPlayerChatEvent ce) {
-    Player player = ce.getPlayer();
-    for (String word : ce.getMessage().split(" ")) {
-      word = word.toLowerCase();
-      if (getConfig().getStringList("BadWords").contains(word))
-        if (!player.hasPermission("DontSwear.bypass")) {
-          ce.setCancelled(true);
-          player.sendMessage(ChatColor.RED + "You're not allowed to say that.");
+    @Override
+    public void onEnable() {
+        PluginDescriptionFile pdfFile = this.getDescription();
+        logger.log(Level.INFO, "[DontSwear] DontSwear v{0} Enabled.", pdfFile.getVersion());
+
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+        saveConfig();
+
+        manager = new SwearManager(this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChatListener(manager), this);
+        loadCommands();
+
+        if (getConfig().getBoolean("AutoUpdater.Enabled")) {
+            Updater updater = new Updater(this, "dontswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
+            logger.info("[DontSwear] AutoUpdater Enabled.");
+        }
+
+        try {
+            MetricsLite metrics = new MetricsLite(this);
+            metrics.start();
+        } catch (IOException e) {
+            logger.info("[DontSwear] Error while submitting stats.");
         }
     }
-  }
 
-  @Override
-  public void onEnable() {
-    logger.info("[DontSwear] DontSwear Enabled.");
-    getConfig().options().copyDefaults(true);
-    saveDefaultConfig();
-    saveConfig();
-    Bukkit.getServer().getPluginManager().registerEvents(this, this);
-    if (getConfig().getBoolean("AutoUpdater.Enabled", true)) {
-      Updater updater = new Updater(this, "dontswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
-      logger.info("[DontSwear] AutoUpdater Enabled.");
+    private void loadCommands() {
+        getCommand("addswear").setExecutor(new AddSwearCommand(manager));
+        getCommand("delswear").setExecutor(new RemoveSwearCommand(manager));
     }
-    try {
-      MetricsLite metrics = new MetricsLite(this);
-      metrics.start();
-    } catch (IOException e) {
-      logger.info("[DontSwear] Error while submitting stats.");
-    }
-  }
 }
