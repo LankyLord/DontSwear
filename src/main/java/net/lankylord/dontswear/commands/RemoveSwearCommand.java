@@ -52,9 +52,9 @@ public class RemoveSwearCommand implements CommandExecutor {
             swear = args[0].toLowerCase();
             if (instance.swears.contains(swear)) {
                 instance.delSwear(swear);
-                cs.sendMessage(ChatColor.YELLOW + swear + " has been removed from the blocked words list.");
+                cs.sendMessage(ChatColor.YELLOW + "[Don't Swear] " + swear + " has been removed from the blocked words list.");
             } else
-                cs.sendMessage(ChatColor.RED + swear + " was not found in the blocked words list.");
+                cs.sendMessage(ChatColor.RED + "[Don't Swear] " + swear + " was not found in the blocked words list.");
         }
         return true;
     }

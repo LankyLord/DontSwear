@@ -31,7 +31,6 @@ import java.util.logging.Logger;
 import net.lankylord.dontswear.commands.AddSwearCommand;
 import net.lankylord.dontswear.commands.RemoveSwearCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,11 +38,10 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author LankyLord
  */
-public class DontSwear extends JavaPlugin implements Listener {
+public class DontSwear extends JavaPlugin {
 
     static final Logger logger = Logger.getLogger("Minecraft");
     private SwearManager manager;
-    private ChatListener listener;
 
     @Override
     public void onEnable() {

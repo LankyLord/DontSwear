@@ -50,8 +50,11 @@ public class AddSwearCommand implements CommandExecutor {
             return false;
         else {
             swear = args[0].toLowerCase();
-            instance.addSwear(swear);
-            cs.sendMessage(ChatColor.YELLOW + swear + " has been added to the blocked words list.");
+            if (!instance.swears.contains(swear)) {
+                instance.addSwear(swear);
+                cs.sendMessage(ChatColor.YELLOW + "[Don't Swear] " + swear + " has been added to the blocked words list.");
+            } else
+                cs.sendMessage(ChatColor.YELLOW + "[Don't Swear] " + swear + " is already present in the blocked words list.");
         }
         return true;
     }
