@@ -40,14 +40,12 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class DontSwear extends JavaPlugin {
 
-    static final Logger logger = Logger.getLogger("Minecraft");
     private SwearManager manager;
 
     @Override
     public void onEnable() {
         PluginDescriptionFile pdfFile = this.getDescription();
-        logger.log(Level.INFO, "[DontSwear] DontSwear v{0} Enabled.", pdfFile.getVersion());
-
+        getLogger.info("Don't Swear Enabled.")
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         saveConfig();
@@ -57,15 +55,15 @@ public class DontSwear extends JavaPlugin {
         loadCommands();
 
         if (getConfig().getBoolean("AutoUpdater.Enabled")) {
-            Updater updater = new Updater(this, "dontswear", this.getFile(), Updater.UpdateType.DEFAULT, true);
-            logger.info("[DontSwear] AutoUpdater Enabled.");
+            Updater updater = new Updater(this, 52997, this.getFile(), Updater.UpdateType.DEFAULT, true);
+            getLogger.info("[DontSwear] AutoUpdater Enabled.");
         }
 
         try {
             MetricsLite metrics = new MetricsLite(this);
             metrics.start();
         } catch (IOException e) {
-            logger.info("[DontSwear] Error while submitting stats.");
+            getLogger.info("[DontSwear] Error while submitting stats.");
         }
     }
 
