@@ -26,13 +26,13 @@
 package net.lankylord.dontswear;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import net.lankylord.dontswear.commands.AddSwearCommand;
 import net.lankylord.dontswear.commands.RemoveSwearCommand;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -44,8 +44,9 @@ public class DontSwear extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        PluginDescriptionFile pdfFile = this.getDescription();
-        getLogger.info("Don't Swear Enabled.")
+    	Logger log = Logger.getLogger("Minecraft");
+        //PluginDescriptionFile pdfFile = this.getDescription();
+        log.info("Don't Swear Enabled.");
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         saveConfig();
@@ -55,15 +56,15 @@ public class DontSwear extends JavaPlugin {
         loadCommands();
 
         if (getConfig().getBoolean("AutoUpdater.Enabled")) {
-            Updater updater = new Updater(this, 52997, this.getFile(), Updater.UpdateType.DEFAULT, true);
-            getLogger.info("[DontSwear] AutoUpdater Enabled.");
+            new Updater(this, 52997, this.getFile(), Updater.UpdateType.DEFAULT, true);
+            log.info("[DontSwear] AutoUpdater Enabled.");
         }
 
         try {
             MetricsLite metrics = new MetricsLite(this);
             metrics.start();
         } catch (IOException e) {
-            getLogger.info("[DontSwear] Error while submitting stats.");
+            log.info("[DontSwear] Error while submitting stats.");
         }
     }
 
